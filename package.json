@@ -1,0 +1,17 @@
+{
+  "name": "iot_led_controller-1",
+  "version": "1.0.0",
+  "description": "School Project using node js stackable and Arduino IDE as well as HTML to form an LED controller accessible by phone",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {}
+}

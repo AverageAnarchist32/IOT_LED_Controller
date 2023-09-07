@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LED Controller</title>
+</head>
+<body>
+  <h1>LED Controller</h1>
+  <p>LED Brightness: <span id="ledBrightness">0</span></p>
+  <input type="range" min="0" max="255" value="0" id="ledSlider">
+  <p>Photoresistor Value: <span id="photoresistorValue">0</span></p>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const ledSlider = document.getElementById('ledSlider');
+    const ledBrightness = document.getElementById('ledBrightness');
+    const photoresistorValue = document.getElementById('photoresistorValue');
+
+    ledSlider.addEventListener('input', () => {
+      const brightness = ledSlider.value;
+      ledBrightness.innerText = brightness;
+      socket.emit('changeLED', brightness);
+    });
+
+    socket.on('updateLED', (brightness) => {
+      ledSlider.value = brightness;
+      ledBrightness.innerText = brightness;
+    });
+
+    setInterval(() => {
+      fetch('/photoresistor')
+        .then(response => response.text())
+        .then(value => {
+          photoresistorValue.innerText = value;
+        });
+    }, 1000);
+  </script>
+</body>
+</html>
